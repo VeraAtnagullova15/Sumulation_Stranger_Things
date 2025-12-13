@@ -1,6 +1,8 @@
 package simulation.actions;
 
 import simulation.WorldMap;
+import simulation.entities.Demobat;
+import simulation.entities.Entity;
 
 public class DemobatSpawn extends SpawnEntity {
     @Override
@@ -9,7 +11,7 @@ public class DemobatSpawn extends SpawnEntity {
     }
 
     @Override
-    protected void spawnEntity() {
-        //TODO
+    protected Entity createEntity() {
+        return new Demobat();
     }
 }

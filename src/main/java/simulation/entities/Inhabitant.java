@@ -2,8 +2,8 @@ package simulation.entities;
 
 public final class Inhabitant extends Survivor {
     public Inhabitant() {
-        speed = 1;
-        health = 100;
-        hunger = 10;
+        speed = SPEED_SURVIVOR;
+        health = HEALTH_SURVIVOR;
+        hunger = HUNGER_SURVIVOR;
     }
 }

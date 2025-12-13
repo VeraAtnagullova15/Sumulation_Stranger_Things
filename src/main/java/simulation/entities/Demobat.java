@@ -3,8 +3,11 @@ package simulation.entities;
 import simulation.Flying;
 
 public final class Demobat extends Demogorgon implements Flying {
-    public Demobat(int speed, int health, int hunger) {
-        super(speed, health, hunger);
+    public Demobat() {
+        speed = SPEED_DEMOGORG;
+        health = HEALTH_DEMOGORG;
+        hunger = HUNGER_DEMOGORG;
+        powerAttack = POWER_ATTACK;
     }
 
     @Override

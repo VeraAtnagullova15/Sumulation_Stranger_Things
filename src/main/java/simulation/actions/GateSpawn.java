@@ -1,6 +1,8 @@
 package simulation.actions;
 
 import simulation.WorldMap;
+import simulation.entities.Entity;
+import simulation.entities.Gate;
 
 public class GateSpawn extends SpawnEntity {
     @Override
@@ -9,7 +11,7 @@ public class GateSpawn extends SpawnEntity {
     }
 
     @Override
-    protected void spawnEntity() {
-        //TODO
+    protected Entity createEntity() {
+        return new Gate();
     }
 }

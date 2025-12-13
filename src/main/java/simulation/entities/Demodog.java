@@ -1,9 +1,11 @@
 package simulation.entities;
 
 public final class Demodog extends Demogorgon {
-    public Demodog(int speed, int health, int hunger) {
-        super(speed = 2, health = 100, hunger = 30);
-
+    public Demodog() {
+        speed = SPEED_DEMOGORG;
+        health = HEALTH_DEMOGORG;
+        hunger = HUNGER_DEMOGORG;
+        powerAttack = POWER_ATTACK;
     }
 
     @Override

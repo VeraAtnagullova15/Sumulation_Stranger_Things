@@ -3,6 +3,6 @@ import simulation.WorldMap;
 
 public abstract class Action {
 
-    abstract void execute(WorldMap map);
+     //void execute(WorldMap map) {}
 
 }

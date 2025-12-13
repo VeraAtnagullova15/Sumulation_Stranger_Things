@@ -15,8 +15,8 @@ public class InhabitantSpawn extends SpawnEntity {
         return new Inhabitant();
     }
 
-    @Override
-    void execute(WorldMap map) {
-        //TODO
-    }
+//    @Override
+//    void execute(WorldMap map) {
+//        //TODO
+//    }
 }

@@ -1,17 +1,18 @@
 package simulation.entities;
 
+import simulation.Coordinates;
+import simulation.WorldMap;
+
 public abstract class Creature extends Entity {
-    int speed;
-    int health;
-    int hunger;
-    Entity target;
+    protected int speed;
+    protected int health;
+    protected int hunger;
+    protected int powerAttack;
+    protected Entity target;
 
     public Creature() {
-
     }
 
-    void makeMove() {
-        //TODO
-    }
+    protected abstract Coordinates findTarget(WorldMap worldMap, Entity target);
 
 }

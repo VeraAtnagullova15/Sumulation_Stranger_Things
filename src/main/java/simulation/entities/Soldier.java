@@ -3,11 +3,15 @@ package simulation.entities;
 import simulation.Attacking;
 
 public final class Soldier extends Survivor implements Attacking {
-    public Soldier(int speed, int health, int hunger) {
-        super(speed, health, hunger);
+    private int countShot;
+    public Soldier() {
+        speed = SPEED_SURVIVOR;
+        health = HEALTH_SURVIVOR;
+        hunger = HUNGER_SURVIVOR;
+        countShot = COUNT_SHOT_SOLDIER;
     }
 
-    int countShot;
+
 
 
     @Override

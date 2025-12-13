@@ -1,6 +1,8 @@
 package simulation.actions;
 
 import simulation.WorldMap;
+import simulation.entities.Entity;
+import simulation.entities.RationBox;
 
 public class RationBoxSpawn extends SpawnEntity {
     @Override
@@ -9,7 +11,7 @@ public class RationBoxSpawn extends SpawnEntity {
     }
 
     @Override
-    protected void spawnEntity() {
-        //TODO
+    protected Entity createEntity() {
+        return new RationBox();
     }
 }

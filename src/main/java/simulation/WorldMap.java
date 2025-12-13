@@ -9,12 +9,11 @@ public class WorldMap {
     private int height;
     private int width;
 
-    Random random = new Random();
-
     public WorldMap(int height, int width) {
         this.height = height;
         this.width = width;
     }
+    Random random = new Random();
 
     public int getHeight() {
         return height;
@@ -24,16 +23,16 @@ public class WorldMap {
         return width;
     }
 
-    public void setHeight(int height) {
+    protected void setHeight(int height) {
         this.height = height;
     }
 
-    public void setWidth(int width) {
+    protected void setWidth(int width) {
         this.width = width;
     }
 
-    HashMap<Coordinates, Entity> coordinatesToEntities = new HashMap<>();
-    HashMap<Entity, Coordinates> entitiesToCoordinates = new HashMap<>();
+    protected HashMap<Coordinates, Entity> coordinatesToEntities = new HashMap<>();
+    protected HashMap<Entity, Coordinates> entitiesToCoordinates = new HashMap<>();
 
 
     public void setEntities(Coordinates coordinates, Entity entity) {
