@@ -4,11 +4,11 @@ import simulation.actions.*;
 import simulation.entities.Entity;
 
 public class Simulation {
-    private WorldMap map;
+    private WorldMap world;
     private RendererWorldMap renderer;
 
-    public Simulation(WorldMap map) {
-        this.map = map;
+    public Simulation(WorldMap world) {
+        this.world = world;
         renderer = new RendererWorldMap();
     }
 
@@ -18,8 +18,10 @@ public class Simulation {
                 new DemobatSpawn(), new GateSpawn(), new SporePatchSpawn(), new RationBoxSpawn()};
 
         for (SpawnEntity se : spawnEntities) {
-            se.spawnEntity(map);
+            se.spawnEntity(world);
         }
     }
+
+
 
 }

@@ -9,6 +9,9 @@ public class WorldMap {
     private int height;
     private int width;
 
+    protected HashMap<Coordinates, Entity> coordinatesToEntities = new HashMap<>();
+    protected HashMap<Entity, Coordinates> entitiesToCoordinates = new HashMap<>();
+
     public WorldMap(int height, int width) {
         this.height = height;
         this.width = width;
@@ -31,9 +34,13 @@ public class WorldMap {
         this.width = width;
     }
 
-    protected HashMap<Coordinates, Entity> coordinatesToEntities = new HashMap<>();
-    protected HashMap<Entity, Coordinates> entitiesToCoordinates = new HashMap<>();
+    public HashMap<Entity, Coordinates> getEntitiesToCoordinates() {
+        return entitiesToCoordinates;
+    }
 
+    public HashMap<Coordinates, Entity> getCoordinatesToEntities() {
+        return coordinatesToEntities;
+    }
 
     public void setEntities(Coordinates coordinates, Entity entity) {
         coordinatesToEntities.put(coordinates, entity);
