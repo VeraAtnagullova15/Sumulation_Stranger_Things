@@ -5,6 +5,7 @@ import simulation.Attacking;
 public final class Soldier extends Survivor implements Attacking {
     private int countShot;
     public Soldier() {
+        super(Demodog.class);
         speed = SPEED_SURVIVOR;
         health = HEALTH_SURVIVOR;
         hunger = HUNGER_SURVIVOR;

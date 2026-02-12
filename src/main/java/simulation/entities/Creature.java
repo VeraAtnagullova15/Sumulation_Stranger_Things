@@ -10,18 +10,18 @@ public abstract class Creature extends Entity {
     protected int health;
     protected int hunger;
     protected int powerAttack;
-    protected Entity target;
-    WorldMap world;
+    protected Class<? extends Entity> targetType;
 
-    public Creature() {
-    }
+    public Creature(Class<? extends Entity> targetType){
+        this.targetType = targetType;
+            }
 
-    protected Coordinates findTarget(WorldMap world, Class <? extends Entity> target) {
+    protected Coordinates findTarget(WorldMap world, Class<? extends Entity> targetType) {
         Coordinates myCoordinates = world.getPosition(this);
         int minimalDistance = Integer.MAX_VALUE;
         Coordinates targetCoordinates = null;
         for (Entity entity : world.getEntitiesToCoordinates().keySet()) {
-            if (target.isInstance(entity)) {
+            if (targetType.isInstance(entity)) {
                 Coordinates coordinates = world.getPosition(entity);
                 int distance = Math.abs(coordinates.row() - myCoordinates.row()) +
                         Math.abs(coordinates.column() - myCoordinates.column());
@@ -34,7 +34,19 @@ public abstract class Creature extends Entity {
         return targetCoordinates;
     }
 
-    protected abstract void makeMove(WorldMap world);
+    public void makeMove(WorldMap world) {
+        // find target
+        // if target = null, do noting
+        Coordinates target = findTarget(world, targetType);
+        if (target == null) return;
+        // choose next step
+        Coordinates current = world.getPosition(this);
+        Coordinates nextStep = chooseNextStep(current, target, world);
+        // moveEntity if square is available
+        if (nextStep.equals(current)) return;
+        // moveEntity if square is available
+        world.moveEntity(this, nextStep);
+    }
 
     protected Coordinates chooseNextStep(Coordinates from, Coordinates to, WorldMap world) {
         Coordinates upCell = new Coordinates(from.row() - 1, from.column());
@@ -42,10 +54,10 @@ public abstract class Creature extends Entity {
         Coordinates rightCell = new Coordinates(from.row(), from.column() + 1);
         Coordinates leftCell = new Coordinates(from.row(), from.column() - 1);
         ArrayList<Coordinates> availableCells = new ArrayList<>();
-        if (world.isPlaceInside(upCell) || world.isPlaceEmpty(upCell)) availableCells.add(upCell);
-        if (world.isPlaceInside(lowCell) || world.isPlaceEmpty(lowCell)) availableCells.add(lowCell);
-        if (world.isPlaceInside(rightCell) || world.isPlaceEmpty(rightCell)) availableCells.add(rightCell);
-        if (world.isPlaceInside(leftCell) || world.isPlaceEmpty(leftCell)) availableCells.add(leftCell);
+        if (world.isPlaceInside(upCell) && world.isPlaceEmpty(upCell)) availableCells.add(upCell);
+        if (world.isPlaceInside(lowCell) && world.isPlaceEmpty(lowCell)) availableCells.add(lowCell);
+        if (world.isPlaceInside(rightCell) && world.isPlaceEmpty(rightCell)) availableCells.add(rightCell);
+        if (world.isPlaceInside(leftCell) && world.isPlaceEmpty(leftCell)) availableCells.add(leftCell);
 
         int minimalDistance = Integer.MAX_VALUE;
         Coordinates nextStep = from;

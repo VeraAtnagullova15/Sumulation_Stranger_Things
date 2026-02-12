@@ -8,6 +8,8 @@ public abstract class Demogorgon extends Creature implements Attacking {
     protected final int HUNGER_DEMOGORG = 20;
     protected final int POWER_ATTACK = 20;
 
-    public Demogorgon() {
+
+    public Demogorgon(Class<? extends Entity> targetType) {
+        super(targetType);
     }
 }

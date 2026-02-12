@@ -11,7 +11,8 @@ public class Main {
         renderer.printMap(world);
         System.out.println();
 
-
+        sim.tick();
+        renderer.printMap(world);
 
 
 
