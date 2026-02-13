@@ -16,7 +16,7 @@ public abstract class Creature extends Entity {
         this.targetType = targetType;
             }
 
-    protected Coordinates findTarget(WorldMap world, Class<? extends Entity> targetType) {
+    public Coordinates findTarget(WorldMap world, Class<? extends Entity> targetType) {
         Coordinates myCoordinates = world.getPosition(this);
         int minimalDistance = Integer.MAX_VALUE;
         Coordinates targetCoordinates = null;
