@@ -1,5 +1,6 @@
 package simulation.entities;
 
+import simulation.BFS;
 import simulation.Coordinates;
 import simulation.WorldMap;
 
@@ -34,14 +35,17 @@ public abstract class Creature extends Entity {
         return targetCoordinates;
     }
 
-    public void makeMove(WorldMap world) {
+    public void makeMove(WorldMap world, BFS bfs) {
         // find target
         // if target = null, do noting
         Coordinates target = findTarget(world, targetType);
         if (target == null) return;
         // choose next step
         Coordinates current = world.getPosition(this);
-        Coordinates nextStep = chooseNextStep(current, target, world);
+        Coordinates nextStep = bfs.findPath(world, current, target);
+        if (nextStep == null) {
+            nextStep = chooseNextStep(current, target, world);
+        }
         // moveEntity if square is available
         if (nextStep.equals(current)) return;
         // moveEntity if square is available

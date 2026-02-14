@@ -6,15 +6,11 @@ import java.util.Map;
 import java.util.Queue;
 
 public class BFS {
-    private Queue<Coordinates> neighbors;
-    private Map<Coordinates, Coordinates> path;
 
-    public BFS() {
-        neighbors = new ArrayDeque<>();
-        path = new HashMap<>();
-    }
+    public Coordinates findPath(WorldMap world, Coordinates start, Coordinates finish) {
+        Queue<Coordinates> neighbors = new ArrayDeque<>();
+        Map<Coordinates, Coordinates> path = new HashMap<>();
 
-    protected Coordinates findPath(WorldMap world, Coordinates start, Coordinates finish) {
         neighbors.add(start);
         path.put(start, null);
 

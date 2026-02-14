@@ -10,10 +10,12 @@ import java.util.ArrayList;
 public class Simulation {
     private WorldMap world;
     private RendererWorldMap renderer;
+    private BFS bfs;
 
     public Simulation(WorldMap world) {
         this.world = world;
         renderer = new RendererWorldMap();
+        bfs = new BFS();
     }
 
     protected void start() {
@@ -33,7 +35,7 @@ public class Simulation {
             }
         }
         for (Creature creature : creatures) {
-            creature.makeMove(world);
+            creature.makeMove(world, bfs);
         }
     }
 }
