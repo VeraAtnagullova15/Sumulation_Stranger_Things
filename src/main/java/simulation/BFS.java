@@ -32,19 +32,23 @@ public class BFS {
             Coordinates rightCell = new Coordinates(current.row(), current.column() + 1);
             Coordinates leftCell = new Coordinates(current.row(), current.column() - 1);
 
-            if (world.isPlaceInside(upCell) && world.isPlaceEmpty(upCell) && !path.containsKey(upCell)){
+            if (world.isPlaceInside(upCell) && (world.isPlaceEmpty(upCell) ||  world.isPlaceEmpty(finish))
+                    && !path.containsKey(upCell)){
                 neighbors.add(upCell);
                 path.put(upCell, current);
             }
-            if (world.isPlaceInside(lowCell) && world.isPlaceEmpty(lowCell) && !path.containsKey(lowCell)){
+            if (world.isPlaceInside(lowCell) && (world.isPlaceEmpty(lowCell)  ||  world.isPlaceEmpty(finish))
+                    && !path.containsKey(lowCell)){
                 neighbors.add(lowCell);
                 path.put(lowCell, current);
             }
-            if (world.isPlaceInside(rightCell) && world.isPlaceEmpty(rightCell) && !path.containsKey(rightCell)){
+            if (world.isPlaceInside(rightCell) && (world.isPlaceEmpty(rightCell)  ||  world.isPlaceEmpty(finish))
+                    && !path.containsKey(rightCell)){
                 neighbors.add(rightCell);
                 path.put(rightCell, current);
             }
-            if (world.isPlaceInside(leftCell) && world.isPlaceEmpty(leftCell) && !path.containsKey(leftCell)){
+            if (world.isPlaceInside(leftCell) && (world.isPlaceEmpty(leftCell)  ||  world.isPlaceEmpty(finish))
+                    && !path.containsKey(leftCell)){
                 neighbors.add(leftCell);
                 path.put(leftCell, current);
             }
