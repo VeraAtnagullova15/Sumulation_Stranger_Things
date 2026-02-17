@@ -1,3 +1,6 @@
 package simulation.entities;
 
-public abstract class Entity {}
+public abstract class Entity {
+    protected int powerSatiety;
+    protected int powerHealing;
+}

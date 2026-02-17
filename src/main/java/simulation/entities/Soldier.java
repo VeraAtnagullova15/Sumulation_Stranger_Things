@@ -1,22 +1,17 @@
 package simulation.entities;
 
-import simulation.Attacking;
+import simulation.WalkMove;
 
-public final class Soldier extends Survivor implements Attacking {
+public final class Soldier extends Survivor {
     private int countShot;
     public Soldier() {
-        super(Demodog.class);
+        super(Demodog.class, new WalkMove());
         speed = SPEED_SURVIVOR;
         health = HEALTH_SURVIVOR;
         hunger = HUNGER_SURVIVOR;
         countShot = COUNT_SHOT_SOLDIER;
+        powerSatiety = POWER_SATIETY_SURVIVOR;
+        powerHealing = POWER_HEALING;
     }
 
-
-
-
-    @Override
-    public void attack() {
-        //TO DO
-    }
 }

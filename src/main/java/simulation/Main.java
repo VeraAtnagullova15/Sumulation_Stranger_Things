@@ -11,12 +11,13 @@ public class Main {
         renderer.printMap(world);
         System.out.println();
 
-        for (int i = 0; i < 6; i++) {
+        for (int i = 0; i < 3; i++) {
             sim.tick();
             renderer.printMap(world);
             System.out.println();
         }
 
     }
+
 
 }

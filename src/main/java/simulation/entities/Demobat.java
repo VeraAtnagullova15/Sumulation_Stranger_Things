@@ -1,23 +1,15 @@
 package simulation.entities;
 
-import simulation.Flying;
+import simulation.FlyMove;
 
-public final class Demobat extends Demogorgon implements Flying {
+public final class Demobat extends Demogorgon{
     public Demobat() {
-        super(Soldier.class);
+        super(Soldier.class, new FlyMove());
         speed = SPEED_DEMOGORG;
         health = HEALTH_DEMOGORG;
         hunger = HUNGER_DEMOGORG;
         powerAttack = POWER_ATTACK;
+        moveBehavior = new FlyMove();
     }
 
-    @Override
-    public void attack() {
-        //TO DO
-    }
-
-    @Override
-    public void fly() {
-        //TO DO
-    }
 }

@@ -1,15 +1,16 @@
 package simulation.entities;
 
-import simulation.Attacking;
+import simulation.MoveBehavior;
+import simulation.WalkMove;
 
-public abstract class Demogorgon extends Creature implements Attacking {
+public abstract class Demogorgon extends Creature {
     protected final int SPEED_DEMOGORG = 2;
     protected final int HEALTH_DEMOGORG = 100;
-    protected final int HUNGER_DEMOGORG = 20;
-    protected final int POWER_ATTACK = 20;
+    protected final int HUNGER_DEMOGORG = 30;
+    protected final int POWER_ATTACK = 25;
 
 
-    public Demogorgon(Class<? extends Entity> targetType) {
-        super(targetType);
+    public Demogorgon(Class<? extends Entity> targetType, MoveBehavior moveBehavior) {
+        super(targetType, new WalkMove());
     }
 }

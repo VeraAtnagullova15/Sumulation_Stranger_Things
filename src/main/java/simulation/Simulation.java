@@ -11,6 +11,7 @@ public class Simulation {
     private WorldMap world;
     private RendererWorldMap renderer;
     private BFS bfs;
+    private MoveBehavior moveBehavior;
 
     public Simulation(WorldMap world) {
         this.world = world;
@@ -35,6 +36,7 @@ public class Simulation {
             }
         }
         for (Creature creature : creatures) {
+            if (world.getPosition(creature) != null)
             creature.makeMove(world, bfs);
         }
     }

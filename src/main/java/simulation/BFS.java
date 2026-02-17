@@ -7,7 +7,7 @@ import java.util.Queue;
 
 public class BFS {
 
-    public Coordinates findPath(WorldMap world, Coordinates start, Coordinates finish) {
+    public Coordinates findPath(WorldMap world, MoveBehavior moveBehavior, Coordinates start, Coordinates finish) {
         Queue<Coordinates> neighbors = new ArrayDeque<>();
         Map<Coordinates, Coordinates> path = new HashMap<>();
 
@@ -32,22 +32,22 @@ public class BFS {
             Coordinates rightCell = new Coordinates(current.row(), current.column() + 1);
             Coordinates leftCell = new Coordinates(current.row(), current.column() - 1);
 
-            if (world.isPlaceInside(upCell) && (world.isPlaceEmpty(upCell) ||  world.isPlaceEmpty(finish))
+            if (world.isPlaceInside(upCell) && moveBehavior.canPass(world, upCell, finish)
                     && !path.containsKey(upCell)){
                 neighbors.add(upCell);
                 path.put(upCell, current);
             }
-            if (world.isPlaceInside(lowCell) && (world.isPlaceEmpty(lowCell)  ||  world.isPlaceEmpty(finish))
+            if (world.isPlaceInside(lowCell) && moveBehavior.canPass(world, lowCell, finish)
                     && !path.containsKey(lowCell)){
                 neighbors.add(lowCell);
                 path.put(lowCell, current);
             }
-            if (world.isPlaceInside(rightCell) && (world.isPlaceEmpty(rightCell)  ||  world.isPlaceEmpty(finish))
+            if (world.isPlaceInside(rightCell) && moveBehavior.canPass(world, rightCell, finish)
                     && !path.containsKey(rightCell)){
                 neighbors.add(rightCell);
                 path.put(rightCell, current);
             }
-            if (world.isPlaceInside(leftCell) && (world.isPlaceEmpty(leftCell)  ||  world.isPlaceEmpty(finish))
+            if (world.isPlaceInside(leftCell) && moveBehavior.canPass(world, leftCell, finish)
                     && !path.containsKey(leftCell)){
                 neighbors.add(leftCell);
                 path.put(leftCell, current);
