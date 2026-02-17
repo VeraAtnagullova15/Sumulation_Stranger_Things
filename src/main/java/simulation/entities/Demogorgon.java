@@ -10,7 +10,8 @@ public abstract class Demogorgon extends Creature {
     protected final int POWER_ATTACK = 25;
 
 
-    public Demogorgon(Class<? extends Entity> targetType, MoveBehavior moveBehavior) {
-        super(targetType, new WalkMove());
+    public Demogorgon(Class<? extends Entity> targetTypeForEat,
+                      Class<? extends Creature> targetTypeForAttack, MoveBehavior moveBehavior) {
+        super(targetTypeForEat, targetTypeForAttack, new WalkMove());
     }
 }

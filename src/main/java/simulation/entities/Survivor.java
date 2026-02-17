@@ -10,11 +10,11 @@ public abstract class Survivor extends Creature {
     protected final int COUNT_SHOT_SOLDIER = 10;
     protected final int POWER_SATIETY_SURVIVOR = 40;
     protected final int POWER_HEALING = 10;
-    protected Class<? extends Entity> targetType;
 
 
-    public Survivor(Class<? extends Entity> targetType, MoveBehavior moveBehavior) {
-        super(targetType, new WalkMove());
+    public Survivor(Class<? extends Entity> targetTypeForEat,
+                    Class<? extends Creature> targetTypeForAttack, MoveBehavior moveBehavior) {
+        super(targetTypeForEat, targetTypeForAttack,new WalkMove());
     }
 }
 

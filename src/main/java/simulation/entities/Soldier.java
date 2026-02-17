@@ -5,7 +5,7 @@ import simulation.WalkMove;
 public final class Soldier extends Survivor {
     private int countShot;
     public Soldier() {
-        super(Demodog.class, new WalkMove());
+        super(null, Demodog.class, new WalkMove());
         speed = SPEED_SURVIVOR;
         health = HEALTH_SURVIVOR;
         hunger = HUNGER_SURVIVOR;

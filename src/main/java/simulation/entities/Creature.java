@@ -6,15 +6,21 @@ import java.util.ArrayList;
 
 public abstract class Creature extends Entity {
     protected int speed;
-    protected int health;
     protected int hunger;
     protected int powerAttack;
-    protected Class<? extends Entity> targetType;
+    protected Class<? extends Entity> targetTypeForEat;
+    protected Class<? extends Creature> targetTypeForAttack;
     protected MoveBehavior moveBehavior;
 
-    public Creature(Class<? extends Entity> targetType, MoveBehavior moveBehavior) {
-        this.targetType = targetType;
+    public Creature(Class<? extends Entity> targetTypeForEat,
+                    Class<? extends Creature> targetTypeForAttack,MoveBehavior moveBehavior) {
+        this.targetTypeForEat = targetTypeForEat;
+        this.targetTypeForAttack = targetTypeForAttack;
         this.moveBehavior = moveBehavior;
+    }
+
+    public int getHunger() {
+        return hunger;
     }
 
     protected Coordinates findTarget(WorldMap world, Class<? extends Entity> targetType) {
@@ -35,72 +41,71 @@ public abstract class Creature extends Entity {
         return targetCoordinates;
     }
 
-    public void makeMove(WorldMap world, BFS bfs) {System.out.println("\n=== MAKEMOVE START для " + this.getClass().getSimpleName() + " ===");
-        System.out.println("Моя позиция в начале хода: " + world.getPosition(this));
-        Coordinates target = findTarget(world, targetType);
-        if (target == null) return;
+    public void makeMove(WorldMap world, BFS bfs) {
+        this.hunger += 5;
+        Coordinates current = world.getPosition(this);
+        if (current == null) return;
+        Coordinates targetEat = null;
+        Coordinates targetAttack = null;
+        if (targetTypeForEat != null) {
+            targetEat = findTarget(world, targetTypeForEat);
+        }
+        if (targetTypeForAttack != null) {
+            targetAttack = findTarget(world, targetTypeForAttack);
+        }
+        Coordinates mainTarget = chooseTarget(current, targetEat, targetAttack);
+        if (mainTarget == null) return;
+
         for (int i = 0; i < speed; i++) {
-            Coordinates current = world.getPosition(this);
-            if (current.equals(target)) {
-                Entity food = world.getEntity(target);
-                eat(world, food);
-                return;
-            }
-            Coordinates nextStep = bfs.findPath(world, this.moveBehavior, current, target);
-            if (nextStep == null) {
-                return;
-            }
-            if (nextStep.equals(target)) {
-                Entity food = world.getEntity(target);
-                eat(world, food);
+            current = world.getPosition(this);
+            if (current == null) return;
+
+            Coordinates nextStep = bfs.findPath(world, this.moveBehavior, current, mainTarget);
+            if (nextStep == null) return;
+
+            if (nextStep.equals(mainTarget)) {
+                Entity entity = world.getEntity(mainTarget);
+                if (mainTarget.equals(targetEat)) {
+                    eat(world,entity);
+                } else {
+                    attack(world,entity);
+                }
                 return;
             }
             world.moveEntity(this, nextStep);
         }
     }
 
-//    protected Coordinates chooseNextStep(Coordinates from, Coordinates to, WorldMap world) {
-//        Coordinates upCell = new Coordinates(from.row() - 1, from.column());
-//        Coordinates lowCell = new Coordinates(from.row() + 1, from.column());
-//        Coordinates rightCell = new Coordinates(from.row(), from.column() + 1);
-//        Coordinates leftCell = new Coordinates(from.row(), from.column() - 1);
-//        ArrayList<Coordinates> availableCells = new ArrayList<>();
-//        if (world.isPlaceInside(upCell) && world.isPlaceEmpty(upCell)) availableCells.add(upCell);
-//        if (world.isPlaceInside(lowCell) && world.isPlaceEmpty(lowCell)) availableCells.add(lowCell);
-//        if (world.isPlaceInside(rightCell) && world.isPlaceEmpty(rightCell)) availableCells.add(rightCell);
-//        if (world.isPlaceInside(leftCell) && world.isPlaceEmpty(leftCell)) availableCells.add(leftCell);
-//
-//        int minimalDistance = Integer.MAX_VALUE;
-//        Coordinates nextStep = from;
-//
-//        for (int i = 0; i < availableCells.size(); i++) {
-//            int distance = Math.abs(to.row() - availableCells.get(i).row()) +
-//                    Math.abs(to.column() - availableCells.get(i).column());
-//            if (distance < minimalDistance) {
-//                minimalDistance = distance;
-//                nextStep = availableCells.get(i);
-//            }
-//        }
-//        return nextStep;
-//    }
+    private Coordinates chooseTarget(Coordinates current, Coordinates targetEat, Coordinates targetAttack) {
+        if (targetEat == null) return targetAttack;
+        if (targetAttack == null) return targetEat;
+
+        int distanceEat = Math.abs(targetEat.row() - current.row()) +
+                Math.abs(targetEat.column() - current.column());
+        int distanceAttack = Math.abs(targetAttack.row() - current.row()) +
+                Math.abs(targetAttack.column() - current.column());
+
+        return Integer.compare(distanceEat,distanceAttack) <= 0 ? targetAttack : targetAttack;
+    }
 
     protected void eat(WorldMap world, Entity food) {
-        System.out.println("=== EAT START ===");
-        System.out.println("Моя позиция ДО еды: " + world.getPosition(this));
-        System.out.println("Позиция еды: " + world.getPosition(food));
         Coordinates foodPosition = world.getPosition(food);
         this.hunger -= food.powerSatiety;
         this.health += food.powerHealing;
         world.removeEntity(food);
-        System.out.println("Еда удалена. Клетка пустая? " + world.isPlaceEmpty(foodPosition));
         if (world.isPlaceEmpty(foodPosition)) {
-            System.out.println("Пытаюсь переместиться на: " + foodPosition);
             world.moveEntity(this, foodPosition);
-            System.out.println("Моя позиция ПОСЛЕ перемещения: " + world.getPosition(this));
-        } else {
-            System.out.println("Клетка НЕ пустая, не перемещаюсь!");
         }
-        System.out.println("=== EAT END ===");
+    }
+
+    protected void attack(WorldMap world, Entity victim) {
+            victim.health -= this.powerAttack;
+            if (victim.health <= 0)
+                if (this.hunger >= 60) {
+                    eat(world, victim);
+            } else {
+                world.removeEntity(victim);
+            }
     }
 
 

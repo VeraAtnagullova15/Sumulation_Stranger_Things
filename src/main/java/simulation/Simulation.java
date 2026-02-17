@@ -36,8 +36,9 @@ public class Simulation {
             }
         }
         for (Creature creature : creatures) {
-            if (world.getPosition(creature) != null)
-            creature.makeMove(world, bfs);
+            if (world.getPosition(creature) != null) {
+                creature.makeMove(world, bfs);
+            }
         }
     }
 }
