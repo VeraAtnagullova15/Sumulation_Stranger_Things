@@ -9,8 +9,8 @@ public abstract class SpawnEntity extends Action {
     protected final int PERCENT_DEMODOGS = 3;
     protected final int PERCENT_DEMOBATS = 3;
     protected final int PERCENT_RATION_BOXES = 5;
-    protected final int PERCENT_SPORE_PATCHES = 3;
-    protected final int PERCENT_GATES = 2;
+    protected final int PERCENT_SPORE_PATCHES = 10;
+    protected final int PERCENT_GATES = 10;
 
     protected abstract int calculateSpawnEntity(WorldMap map);
 

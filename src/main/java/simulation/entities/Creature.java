@@ -7,6 +7,7 @@ import java.util.ArrayList;
 public abstract class Creature extends Entity {
     protected int speed;
     protected int hunger;
+    protected int health;
     protected int powerAttack;
     protected Class<? extends Entity> targetTypeForEat;
     protected Class<? extends Creature> targetTypeForAttack;
@@ -21,6 +22,10 @@ public abstract class Creature extends Entity {
 
     public int getHunger() {
         return hunger;
+    }
+
+    public int getHealth() {
+        return health;
     }
 
     protected Coordinates findTarget(WorldMap world, Class<? extends Entity> targetType) {
@@ -43,6 +48,17 @@ public abstract class Creature extends Entity {
 
     public void makeMove(WorldMap world, BFS bfs) {
         this.hunger += 5;
+        if (this.hunger >= 100) {
+            this.health -= 5;
+            if (this.health <= 0) {
+                world.removeEntity(this);
+                return;
+            }
+        }
+        if (this.health > 100) this.health = 100;
+        System.out.println(this);
+        System.out.println("Hunger = " + this.hunger + "; health = " + this.health);
+
         Coordinates current = world.getPosition(this);
         if (current == null) return;
         Coordinates targetEat = null;
@@ -53,6 +69,7 @@ public abstract class Creature extends Entity {
         if (targetTypeForAttack != null) {
             targetAttack = findTarget(world, targetTypeForAttack);
         }
+
         Coordinates mainTarget = chooseTarget(current, targetEat, targetAttack);
         if (mainTarget == null) return;
 
@@ -66,13 +83,17 @@ public abstract class Creature extends Entity {
             if (nextStep.equals(mainTarget)) {
                 Entity entity = world.getEntity(mainTarget);
                 if (mainTarget.equals(targetEat)) {
-                    eat(world,entity);
+                    eat(world, entity);
+                    System.out.println("I am eating..");
                 } else {
-                    attack(world,entity);
+                    attack(world, (Creature) entity);
+                    System.out.println("I am attacking...");
                 }
                 return;
             }
             world.moveEntity(this, nextStep);
+            checkCellEffects(world, nextStep);
+
         }
     }
 
@@ -85,7 +106,7 @@ public abstract class Creature extends Entity {
         int distanceAttack = Math.abs(targetAttack.row() - current.row()) +
                 Math.abs(targetAttack.column() - current.column());
 
-        return Integer.compare(distanceEat,distanceAttack) <= 0 ? targetAttack : targetAttack;
+        return Integer.compare(distanceEat,distanceAttack) <= 0 ? targetEat : targetAttack;
     }
 
     protected void eat(WorldMap world, Entity food) {
@@ -98,15 +119,17 @@ public abstract class Creature extends Entity {
         }
     }
 
-    protected void attack(WorldMap world, Entity victim) {
+    protected void attack(WorldMap world, Creature victim) {
             victim.health -= this.powerAttack;
             if (victim.health <= 0)
-                if (this.hunger >= 60) {
+                if (this.hunger >= 50) {
                     eat(world, victim);
             } else {
                 world.removeEntity(victim);
             }
     }
+
+    protected abstract void checkCellEffects(WorldMap world, Coordinates nextStep);
 
 
 }

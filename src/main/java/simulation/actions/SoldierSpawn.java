@@ -11,7 +11,7 @@ public class SoldierSpawn extends SpawnEntity {
     }
 
     @Override
-    protected Entity createEntity() {
+    public Entity createEntity() {
         return new Soldier();
     }
 

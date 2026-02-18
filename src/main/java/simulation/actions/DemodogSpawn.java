@@ -11,7 +11,7 @@ public class DemodogSpawn extends SpawnEntity {
     }
 
     @Override
-    protected Entity createEntity() {
+    public Entity createEntity() {
         return new Demodog();
     }
 }

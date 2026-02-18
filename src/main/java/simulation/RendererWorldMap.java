@@ -4,7 +4,9 @@ import simulation.entities.*;
 
 public class RendererWorldMap {
 
-    private static final String REGULAR_BACKGROUD = "\u001B[48;5;153m";
+    private static final String REGULAR_BACKGROUD = "\u001B[46;5;107m";
+    private static final String WARNING_BACKGROUND = "\u001B[48;5;220m";
+    private static final String DANGER_BACKGROUND = "\u001B[48;5;196m";
     private static final String ANSI_RESET = "\u001B[0m";
     private static final String EMPTY_SPACE = "•";
     private static final String DEMODOG = "\uD83D\uDC3A";
@@ -27,13 +29,25 @@ public class RendererWorldMap {
 
     }
 
+    protected String getBackgroundColor(Entity entity) {
+        if (entity instanceof Creature creature) {
+            if (creature.getHealth() <= 25 || creature.getHunger() >= 75) {
+                return DANGER_BACKGROUND;
+            } else if (creature.getHealth() <= 40 || creature.getHunger() >= 60){
+                return WARNING_BACKGROUND;
+            }
+        }
+        return REGULAR_BACKGROUD;
+    }
+
     protected void printMap(WorldMap map) {
         for (int i = 0; i < map.getHeight(); i++) {
             StringBuilder line = new StringBuilder("");
             for (int j = 0; j < map.getWidth(); j++) {
                 Coordinates coordinates = new Coordinates(i, j);
                 Entity entity = map.getEntity(coordinates);
-                line.append(REGULAR_BACKGROUD).append(String.format("%-4s", getSymbolEntities(entity))).append(ANSI_RESET);
+                String background = getBackgroundColor(entity);
+                line.append(background).append(String.format("%-4s", getSymbolEntities(entity))).append(ANSI_RESET);
             }
             System.out.println(line);
         }
