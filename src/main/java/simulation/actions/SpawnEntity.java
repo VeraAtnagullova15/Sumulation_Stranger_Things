@@ -16,12 +16,17 @@ public abstract class SpawnEntity extends Action {
 
     protected abstract Entity createEntity();
 
-    public void spawnEntity(WorldMap map) {
-        int numberEntities = calculateSpawnEntity(map);
+    public void spawnEntity(WorldMap world) {
+        int numberEntities = calculateSpawnEntity(world);
         for (int i = 0; i < numberEntities; i++) {
-            Coordinates coordinates = map.getRandomEmptyPlace();
+            Coordinates coordinates = world.getRandomEmptyPlace();
             Entity entity = createEntity();
-            map.setEntities(coordinates, entity);
+            world.setEntities(coordinates, entity);
         }
+    }
+
+    @Override
+    public void execute(WorldMap world) {
+        spawnEntity(world);
     }
 }

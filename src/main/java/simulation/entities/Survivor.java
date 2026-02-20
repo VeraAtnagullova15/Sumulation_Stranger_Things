@@ -8,10 +8,11 @@ import simulation.WorldMap;
 public abstract class Survivor extends Creature {
     protected final int SPEED_SURVIVOR = 1;
     protected final int HEALTH_SURVIVOR = 100;
-    protected final int HUNGER_SURVIVOR = 10;
-    protected final int COUNT_SHOT_SOLDIER = 10;
-    protected final int POWER_SATIETY_SURVIVOR = 25;
+    protected final int HUNGER_SURVIVOR = 25;
+    protected final int COUNT_SHOT_SOLDIER = 8;
+    protected final int POWER_SATIETY_SURVIVOR = 15;
     protected final int POWER_HEALING = 5;
+    protected final int POWER_ATTACK_SOLDIER = 20;
 
 
     public Survivor(Class<? extends Entity> targetTypeForEat,
