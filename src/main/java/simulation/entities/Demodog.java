@@ -9,6 +9,5 @@ public final class Demodog extends Demogorgon {
         health = HEALTH_DEMOGORG;
         hunger = HUNGER_DEMOGORG;
         powerAttack = POWER_ATTACK;
-        moveBehavior = new WalkMove();
     }
 }

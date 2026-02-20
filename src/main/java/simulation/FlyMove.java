@@ -10,7 +10,7 @@ public class FlyMove implements MoveBehavior {
         if (cell.equals(target))return true;
         if (world.isPlaceEmpty(cell)) return true;
         Entity entity = world.getEntity(cell);
-        if (entity instanceof MapObject || entity instanceof Demogorgon) return true;
+        if (entity instanceof MapObject) return true;
         return false;
     }
 }

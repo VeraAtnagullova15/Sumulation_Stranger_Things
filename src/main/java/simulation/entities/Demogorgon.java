@@ -23,7 +23,6 @@ public abstract class Demogorgon extends Creature {
         if (entityCell instanceof Gate) {
             Coordinates randomCell = world.getRandomEmptyPlace();
             world.moveEntity(this, randomCell);
-            System.out.println("I am teleporting");
             return;
         }
     }

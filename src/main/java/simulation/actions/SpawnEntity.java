@@ -5,12 +5,12 @@ import simulation.entities.Entity;
 
 public abstract class SpawnEntity extends Action {
     protected final int PERCENT_INHABITANTS = 5;
-    protected final int PERCENT_SOLDIERS = 3;
+    protected final int PERCENT_SOLDIERS = 4;
     protected final int PERCENT_DEMODOGS = 3;
     protected final int PERCENT_DEMOBATS = 3;
     protected final int PERCENT_RATION_BOXES = 5;
-    protected final int PERCENT_SPORE_PATCHES = 10;
-    protected final int PERCENT_GATES = 10;
+    protected final int PERCENT_SPORE_PATCHES = 5;
+    protected final int PERCENT_GATES = 6;
 
     protected abstract int calculateSpawnEntity(WorldMap map);
 
@@ -24,7 +24,4 @@ public abstract class SpawnEntity extends Action {
             map.setEntities(coordinates, entity);
         }
     }
-
-
-
 }

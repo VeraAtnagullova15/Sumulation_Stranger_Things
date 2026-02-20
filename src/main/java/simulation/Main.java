@@ -7,18 +7,25 @@ public class Main {
         WorldMap world = new WorldMap(10, 10);
         Simulation sim = new Simulation(world);
         sim.start();
-
         renderer.printMap(world);
-        System.out.println();
 
-        for (int i = 0; i < 10; i++) {
+        try {
+            Thread.sleep(2000); // Пауза перед началом
+        } catch (InterruptedException e) {
+            return;
+        }
+
+        for (int i = 0; i < 20; i++) {
             sim.tick();
             renderer.printMap(world);
             sim.refreshResources();
-            System.out.println();
+
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                break;
+            }
         }
-
-
     }
 
 

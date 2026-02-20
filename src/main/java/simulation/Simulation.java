@@ -10,7 +10,6 @@ public class Simulation {
     private WorldMap world;
     private RendererWorldMap renderer;
     private BFS bfs;
-    private MoveBehavior moveBehavior;
 
     public Simulation(WorldMap world) {
         this.world = world;

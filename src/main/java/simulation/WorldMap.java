@@ -56,10 +56,6 @@ public class WorldMap {
                 coordinates.column() >= 0 && coordinates.column() < width;
     }
 
-    public boolean canMoveTo(Coordinates coordinates) {
-        return isPlaceEmpty(coordinates) && isPlaceInside(coordinates);
-    }
-
     public Entity getEntity(Coordinates coordinates) {
         return coordinatesToEntities.get(coordinates);
     }

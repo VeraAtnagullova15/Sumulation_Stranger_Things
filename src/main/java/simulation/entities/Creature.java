@@ -56,8 +56,6 @@ public abstract class Creature extends Entity {
             }
         }
         if (this.health > 100) this.health = 100;
-        System.out.println(this);
-        System.out.println("Hunger = " + this.hunger + "; health = " + this.health);
 
         Coordinates current = world.getPosition(this);
         if (current == null) return;
@@ -84,10 +82,8 @@ public abstract class Creature extends Entity {
                 Entity entity = world.getEntity(mainTarget);
                 if (mainTarget.equals(targetEat)) {
                     eat(world, entity);
-                    System.out.println("I am eating..");
                 } else {
                     attack(world, (Creature) entity);
-                    System.out.println("I am attacking...");
                 }
                 return;
             }
@@ -111,8 +107,7 @@ public abstract class Creature extends Entity {
 
     protected void eat(WorldMap world, Entity food) {
         Coordinates foodPosition = world.getPosition(food);
-        this.hunger -= food.powerSatiety;
-        this.health += food.powerHealing;
+        this.hunger = Math.max(0, this.hunger - food.powerSatiety);
         world.removeEntity(food);
         if (world.isPlaceEmpty(foodPosition)) {
             world.moveEntity(this, foodPosition);
@@ -120,7 +115,7 @@ public abstract class Creature extends Entity {
     }
 
     protected void attack(WorldMap world, Creature victim) {
-            victim.health -= this.powerAttack;
+            victim.health = Math.max(0, victim.health - this.powerAttack);
             if (victim.health <= 0)
                 if (this.hunger >= 50) {
                     eat(world, victim);

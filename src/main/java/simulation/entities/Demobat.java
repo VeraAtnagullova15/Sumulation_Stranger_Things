@@ -9,7 +9,6 @@ public final class Demobat extends Demogorgon{
         health = HEALTH_DEMOGORG;
         hunger = HUNGER_DEMOGORG;
         powerAttack = POWER_ATTACK;
-        moveBehavior = new FlyMove();
     }
 
 }
