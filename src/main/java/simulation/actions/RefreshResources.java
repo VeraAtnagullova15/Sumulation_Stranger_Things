@@ -20,27 +20,27 @@ public class RefreshResources extends Action {
             else if (entity instanceof Demodog) countDemodog++;
             else if (entity instanceof RationBox) countRation++;
         }
-        if (countInhabitant <= 2) {
+        if (countInhabitant <= 3) {
             Coordinates coordinates = world.getRandomEmptyPlace();
             Entity entity = new InhabitantSpawn().createEntity();
             world.setEntities(coordinates, entity);
         }
-        if (countSoldier <= 2) {
+        if (countSoldier <= 3) {
             Coordinates coordinates = world.getRandomEmptyPlace();
             Entity entity = new SoldierSpawn().createEntity();
             world.setEntities(coordinates, entity);
         }
-        if (countDemobat <= 1) {
+        if (countDemobat <= 3) {
             Coordinates coordinates = world.getRandomEmptyPlace();
             Entity entity = new DemobatSpawn().createEntity();
             world.setEntities(coordinates, entity);
         }
-        if (countDemodog <= 1) {
+        if (countDemodog <= 3) {
             Coordinates coordinates = world.getRandomEmptyPlace();
             Entity entity = new DemodogSpawn().createEntity();
             world.setEntities(coordinates, entity);
         }
-        if (countRation <= 2) {
+        if (countRation <= 5) {
             Coordinates coordinates = world.getRandomEmptyPlace();
             Entity entity = new RationBoxSpawn().createEntity();
             world.setEntities(coordinates, entity);

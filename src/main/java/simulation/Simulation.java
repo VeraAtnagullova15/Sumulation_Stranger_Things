@@ -7,11 +7,17 @@ import java.util.List;
 
 public class Simulation {
 
-private WorldMap world;
-private RendererWorldMap renderer;
-private int counterTurns;
-private List<Action> initActions;
-private List<Action> turnActions;
+    private WorldMap world;
+    private RendererWorldMap renderer;
+    private int counterTurns;
+    private List<Action> initActions;
+    private List<Action> turnActions;
+    protected volatile boolean isPaused = false;
+    protected final Object lock = new Object();
+    protected volatile boolean isRunning = true;
+
+    public Simulation() {
+    }
 
     public Simulation(WorldMap world) {
         this.world = world;
@@ -37,7 +43,7 @@ private List<Action> turnActions;
     }
 
     protected void start() {
-        for (Action action: initActions) {
+        for (Action action : initActions) {
             action.execute(world);
         }
         renderer.printMap(world);
@@ -58,28 +64,21 @@ private List<Action> turnActions;
     }
 
     protected void startSimulation() {
-        boolean isPause = false;
-        start();
-
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            return;
-        }
-
-        while (!isPause) {
+        while (!isPaused) {
             nextTurn();
-
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                break;
-            }
+            System.out.println(getCounterTurns());
         }
     }
 
     protected void pauseSimulation() {
-        //  to do
+        isPaused = true;
+    }
+
+    protected void restartSimulation() {
+        synchronized (lock) {
+            isPaused = false;
+            lock.notify();
+        }
     }
 
 

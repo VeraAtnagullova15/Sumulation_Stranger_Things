@@ -35,9 +35,9 @@ public class RendererWorldMap {
 
     protected String getBackgroundColor(Entity entity) {
         if (entity instanceof Creature creature) {
-            if (creature.getHealth() <= 25 || creature.getHunger() >= 75) {
+            if (creature.getHealth() <= 15 || creature.getHunger() >= 85) {
                 return DANGER_BACKGROUND;
-            } else if (creature.getHealth() <= 40 || creature.getHunger() >= 60){
+            } else if (creature.getHealth() <= 30 || creature.getHunger() >= 70){
                 return WARNING_BACKGROUND;
             }
         }
